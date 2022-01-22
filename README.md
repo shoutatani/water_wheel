@@ -1,5 +1,7 @@
 # WaterWheel
 
+[![RSpec](https://github.com/shoutatani/water_wheel/actions/workflows/main.yml/badge.svg)](https://github.com/shoutatani/water_wheel/actions/workflows/main.yml)
+
 Backup your local files or directories into cloud storages.
 
 Now AWS S3 (Simple Storage Service) is only available.

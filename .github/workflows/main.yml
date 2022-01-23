@@ -1,4 +1,4 @@
-name: Ruby
+name: RSpec
 
 on:
   push:
@@ -10,7 +10,7 @@ on:
       - main
 
 jobs:
-  rspec:
+  test:
     runs-on: ubuntu-latest
     name: Ruby ${{ matrix.ruby }}
     strategy:

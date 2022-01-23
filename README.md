@@ -12,7 +12,7 @@ Now AWS S3 (Simple Storage Service) is only available.
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'water_wheel'
+gem "water_wheel"
 ```
 
 And then execute:
@@ -27,13 +27,13 @@ Or install it yourself as:
 
 1. Create a new S3 bucket for backup.
 
-1. add `require 'water_wheel'` to your application or ruby script.
+1. add `require "water_wheel"` to your application or ruby script.
 
 1. Setting water_wheel gem with your AWS credential.
 
     ```ruby
     WaterWheel.configure do |config|
-      config.provider = 'AWS'
+      config.provider = "AWS"
       config.aws_access_key_id = "your_access_key_id"
       config.aws_secret_access_key = "your_secret_access_key"
       config.aws_region = "your_region"
@@ -41,7 +41,7 @@ Or install it yourself as:
       config.absolute_path_on_files = ["/path/to/your/files", "/path/to/your/other/files"]
       config.absolute_path_on_directories = ["/path/to/your/directories", "/path/to/your/other/directories"]
       config.ordered_omit_path_prefixes = ["/path/prefix/to/omit"]
-      config.storage_class = 'STANDARD' # STANDARD, REDUCED_REDUNDANCY, STANDARD_IA...
+      config.storage_class = "STANDARD" # STANDARD, REDUCED_REDUNDANCY, STANDARD_IA...
       config.dry_run = false
     end
     ```

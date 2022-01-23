@@ -103,7 +103,7 @@ module WaterWheel
         bucket_file_key = absolute_file_path
         configuration.ordered_omit_path_prefixes.each do |prefix|
           if absolute_file_path.start_with?(prefix)
-            bucket_file_key = absolute_file_path.sub(prefix, '')
+            bucket_file_key = absolute_file_path.sub(prefix, "")
             break
           end
         end

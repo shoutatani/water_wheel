@@ -1,5 +1,6 @@
 # WaterWheel
 
+[![Gem Version](https://badge.fury.io/rb/water_wheel.svg)](https://badge.fury.io/rb/water_wheel)
 [![RSpec](https://github.com/shoutatani/water_wheel/actions/workflows/main.yml/badge.svg)](https://github.com/shoutatani/water_wheel/actions/workflows/main.yml)
 
 Backup your local files or directories into cloud storages.

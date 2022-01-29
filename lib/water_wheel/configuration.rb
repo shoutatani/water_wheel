@@ -11,6 +11,7 @@ module WaterWheel
                   :absolute_path_on_directories,
                   :ordered_omit_path_prefixes,
                   :storage_class,
+                  :parallel_count,
                   :dry_run
 
     def initialize
@@ -23,6 +24,7 @@ module WaterWheel
       @absolute_path_on_directories = []
       @ordered_omit_path_prefixes = ["/"]
       @storage_class = "STANDARD"
+      @parallel_count = 3
       @dry_run = false
     end
 
@@ -41,6 +43,7 @@ module WaterWheel
     def validate!
       validate_aws_configuration if provider == "AWS"
       validate_backup_target
+      validate_parallel_count
     end
 
     private
@@ -51,19 +54,20 @@ module WaterWheel
          aws_region
          aws_bucket_name
       ).each do |key|
-       if self.public_send(key).nil? || self.public_send(key).empty?
-         error_message = <<~ERROR
-           WaterWheel configuration #{key} is missing.
-           Please set it as
-            `WaterWheel.configure do |config|
-               config.#{key} = "value"
-             end`
-         ERROR
-         raise error_message
-       end
-     end
+        if self.public_send(key).nil? || self.public_send(key).empty?
+          error_message = <<~ERROR
+            WaterWheel configuration #{key} is missing.
+            Please set it as
+              `WaterWheel.configure do |config|
+                 config.#{key} = "value"
+               end`
+          ERROR
+          raise error_message
+        end
+      end
+    end
 
-     def validate_backup_target
+    def validate_backup_target
       both_upload_target_are_not_set = %i(absolute_path_on_files absolute_path_on_directories).all? do |key|
         self.public_send(key).nil? || self.public_send(key).empty?
       end
@@ -78,7 +82,19 @@ module WaterWheel
         ERROR
         raise error_message
       end
-     end
+    end
+
+    def validate_parallel_count
+      if parallel_count.nil? || parallel_count < 1
+        error_message = <<~ERROR
+          WaterWheel parallel count is invalid.
+          Please set it as
+            `WaterWheel.configure do |config|
+               config.parallel_count = 10
+             end`
+        ERROR
+        raise error_message
+      end
     end
   end
 end

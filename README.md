@@ -42,12 +42,13 @@ Or install it yourself as:
       config.absolute_path_on_directories = ["/path/to/your/directories", "/path/to/your/other/directories"]
       config.ordered_omit_path_prefixes = ["/path/prefix/to/omit"]
       config.storage_class = "STANDARD" # STANDARD, REDUCED_REDUNDANCY, STANDARD_IA...
+      config.parallel_count = 3
       config.dry_run = false
     end
     ```
 
+    * You can change upload parallel thread count by `parallel_count` setting. Default is 3.
     * if you'd like to do a dry run, set `config.dry_run = true`
-
 
 1. Run, and you will see the result.
 

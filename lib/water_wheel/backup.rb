@@ -2,6 +2,7 @@
 
 require "fog/aws"
 require "retriable"
+require "parallel"
 
 module WaterWheel
   class Backup
@@ -61,7 +62,7 @@ module WaterWheel
 
       def upload_directory(absolute_directory_path)
         included_files = Dir.glob(File.join(absolute_directory_path, "**", "*"))
-        included_files.each do |included_file|
+        Parallel.each(included_files, in_threads: configuration.parallel_count) do |included_file|
           next if File.directory?(included_file)
 
           upload_file(included_file)
@@ -71,14 +72,14 @@ module WaterWheel
       def upload_file(absolute_file_path)
         bucket_file_key = create_bucket_key(absolute_file_path)
 
-        return unless shouldUploadFile?(bucket_file_key, absolute_file_path)
-
-        if configuration.dry_run
-          WaterWheel.logger.info "Dry run: Uploading #{absolute_file_path} to #{bucket_file_key}"
-          return
-        end
-
         begin
+          return unless shouldUploadFile?(bucket_file_key, absolute_file_path)
+
+          if configuration.dry_run
+            WaterWheel.logger.info "Dry run: Uploading #{absolute_file_path} to #{bucket_file_key}"
+            return
+          end
+
           Retriable.retriable do
             bucket.files.create(
               key: bucket_file_key,

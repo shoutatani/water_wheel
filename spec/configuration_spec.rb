@@ -79,6 +79,57 @@ RSpec.describe WaterWheel::Configuration do
           end
         end
       end
+
+      describe "parallel_count" do
+        before do
+          aws_credentials.each do |aws_credential_key|
+            WaterWheel.configuration.public_send("#{aws_credential_key}=", "dummy_value")
+          end
+          backup_targets.each do |upload_target|
+            WaterWheel.configuration.public_send("#{upload_target}=", ["dummy_value"])
+          end
+        end
+        context "when parallel_count is not set" do
+          context "when parallel_count is set as nil" do
+            before do
+              WaterWheel.configuration.parallel_count = nil
+            end
+            it "raises error about parallel_count is not set" do
+              expect { WaterWheel.configuration.validate! }.to raise_error(RuntimeError) do |error|
+                expect(error.message).to match(/parallel_count/)
+              end
+            end
+          end
+          context "when parallel_count is set as 0" do
+            before do
+              WaterWheel.configuration.parallel_count = 0
+            end
+            it "raises error about parallel_count is not set" do
+              expect { WaterWheel.configuration.validate! }.to raise_error(RuntimeError) do |error|
+                expect(error.message).to match(/parallel_count/)
+              end
+            end
+          end
+          context "when parallel_count is set as minus value" do
+            before do
+              WaterWheel.configuration.parallel_count = -1
+            end
+            it "raises error about parallel_count is not set" do
+              expect { WaterWheel.configuration.validate! }.to raise_error(RuntimeError) do |error|
+                expect(error.message).to match(/parallel_count/)
+              end
+            end
+          end
+        end
+        context "when parallel_count is set" do
+          before do
+            WaterWheel.configuration.parallel_count = 10
+          end
+          it "does not raise error" do
+            expect { WaterWheel.configuration.validate! }.not_to raise_error
+          end
+        end
+      end
     end
   end
 

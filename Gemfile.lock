@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    water_wheel (0.2.0)
+    water_wheel (0.2.1)
       fog-aws (~> 3.0)
       parallel (~> 1.21)
       retriable (~> 3.1)
@@ -12,7 +12,7 @@ GEM
     ast (2.4.2)
     builder (3.2.4)
     diff-lcs (1.5.0)
-    excon (0.90.0)
+    excon (0.91.0)
     fog-aws (3.12.0)
       fog-core (~> 2.1)
       fog-json (~> 1.1)
@@ -36,8 +36,6 @@ GEM
     mime-types-data (3.2022.0105)
     multi_json (1.15.0)
     nokogiri (1.13.1-x86_64-darwin)
-      racc (~> 1.4)
-    nokogiri (1.13.1-x86_64-linux)
       racc (~> 1.4)
     parallel (1.21.0)
     parser (3.0.3.2)
@@ -77,6 +75,7 @@ GEM
 
 PLATFORMS
   x86_64-darwin-20
+  x86_64-darwin-21
   x86_64-linux
 
 DEPENDENCIES

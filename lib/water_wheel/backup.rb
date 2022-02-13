@@ -116,7 +116,11 @@ module WaterWheel
 
         file_information = bucket.files.head(buckey_file_key)
         return true if file_information.nil?
-        return false if file_information.content_length == File.size(absolute_file_path)
+        if file_information.content_length == File.size(absolute_file_path)
+          WaterWheel.logger.info "#{absolute_file_path} has already been backed up as #{buckey_file_key} on #{bucket.key}"
+          return false
+        end
+
         true
       end
     end

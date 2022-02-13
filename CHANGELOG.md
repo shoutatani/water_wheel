@@ -1,6 +1,10 @@
 ## [Unreleased]
 * None
 
+## [0.2.1] - 2022-02-13
+### Added
+- Let logger output logs on checking existing files.
+
 ## [0.2.0] - 2022-01-29
 ### Added
 - Introduced `parallel_count` setting, which can be used to set the number of parallel threads to use.
